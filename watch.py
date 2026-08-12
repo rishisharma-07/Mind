@@ -5,7 +5,7 @@ from convert import convert_video
 
 import os
 import time
-
+from analyze import analyze_video
 
 VIDEO_EXTENSIONS = (
     ".mp4",
@@ -18,7 +18,6 @@ VIDEO_EXTENSIONS = (
 )
 
 def wait_until_file_ready(file_path):
-
     previous_size = -1
 
     while True:
@@ -59,8 +58,10 @@ class WatchHandler(FileSystemEventHandler):
 
             print("Copy complete!")
 
-            convert_video(file_path)
+            info = analyze_video(file_path)
 
+            convert_video(file_path)
+        
 def start_watching():
 
     folder = "watch_folder"
@@ -87,3 +88,6 @@ def start_watching():
         observer.stop()
 
     observer.join()
+
+if __name__ == "__main__":
+    start_watching()

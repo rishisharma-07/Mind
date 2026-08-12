@@ -8,8 +8,10 @@ FFMPEG_PATH = os.path.join("ffmpeg", "ffmpeg.exe")
 def convert_video(input_file):
 
     # Create output filename
-    file_name = os.path.splitext(input_file)[0]
-    output_file = file_name + ".mov"
+    output_folder = "output"
+    os.makedirs(output_folder, exist_ok=True)
+    file_name = os.path.splitext(os.path.basename(input_file))[0]
+    output_file = os.path.join(output_folder, file_name + ".mov")
 
     # FFmpeg command
     command = [
